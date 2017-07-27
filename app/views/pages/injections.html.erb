@@ -1,0 +1,115 @@
+<h1>Injections 💉<a href="/owasp-top-ten/broken-auth-and-session-management" class="nav-succ">▶︎</a></h1>
+
+<section>
+  <h2>Whatisthat?</h2>
+
+  <quote>Injection flaws, such as SQL, OS, XXE, and LDAP injection occur when untrusted data is sent to an
+  interpreter as part of a command or query. The attacker’s hostile data can trick the interpreter
+  into executing unintended commands or accessing data without proper authorization.</quote>
+
+  <p>
+    Basically when user can enter an input (forms, url, headers, cookies, whatever) and there is an interpreter somewhere that use the input, there is a risk of injection.
+  </p>
+</section>
+
+<section>
+  <h2>Still don't get it</h2>
+
+  <p>Here is an example of sql injection:<p>
+
+  <code><span class="code-keyword">class</span> <span class="code-constant">FormController</span>
+  <span class="code-keyword">def</span> <span class="code-constant">handle_form</span>
+    username = params[<span class="code-symbol">:username</span>]
+    password = params[<span class="code-symbol">:password</span>]
+
+    user = User.find_by(<span class="code-string">"username = #{username} AND password = #{password}"</span>)
+    render <span class="code-symbol">json:</span> {
+        <span class="code-symbol">user_id:</span> user.id,
+        <span class="code-symbol">user_secret:</span> user.secret
+    }
+  <span class="code-keyword">end</span>
+<span class="code-keyword">end</span></code>
+</section>
+
+<section>
+  <h2>Showme Maybe?</h2>
+
+  <h3>Code injection</h3>
+  <section class="demo"><iframe src="/demos/code-injection" frameborder="0" scrolling="no" onload="resizeIframe(this)"></iframe></section>
+
+  <h3>SQL injection</h3>
+  <section class="demo"><iframe src="/demos/sql-injection" frameborder="0" scrolling="no" onload="resizeIframe(this)"></iframe></section>
+
+  <h3>Blind SQL injection</h3>
+  <section class="demo"><iframe src="/demos/blind-sql-injection" frameborder="0" scrolling="no" onload="resizeIframe(this)"></iframe></section>
+</section>
+
+<section>
+  <h2>I mean c'mon, does it really happen in real life?</h2>
+
+  <p>
+    Yes it does:
+    <ul>
+      <li>
+        <a href="https://venturebeat.com/2013/01/30/rubygems-org-hacked-interrupting-heroku-services-and-putting-millions-of-sites-using-rails-at-risk/">
+          RubyGem hack
+        </a>
+
+      <li>
+        <a href="http://codecurmudgeon.com/wp/sql-injection-hall-of-shame/">
+          SQL injection Hall of Shame
+        </a>
+    </ul>
+  <p>
+</section>
+
+<section>
+  <h2 style="text-transform: uppercase">My god! My code is at risk! How can I fix this 😱😱😱</h2>
+
+  <p>Chill out dude!</p>
+
+  <p>The following table will help you mitigate the risk of an injection :)</p>
+
+  <table>
+    <thead>
+      <th>View (display)</th>
+      <th>View (user input)</th>
+      <th>Controller</th>
+      <th>Model</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul>
+            <li>Correct content-type
+            <li>Correct local
+            <li>Safe character set (utf-8)
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Enforce input length
+            <li>Validate fields and give feedback
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Input sanitization
+            <li>Whitelist validation of input
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Parametrized queries <i>(ORM, Stored Procedure)</i>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet">SQL Injection Cheat Sheet ⤴️</a>
+    <a href="https://www.owasp.org/index.php/Query_Parameterization_Cheat_Sheet">Query Parameterization Cheat Sheet ⤴️</a>
+    <a href="https://www.owasp.org/index.php/Command_Injection">Command Injection Cheat Sheet ⤴️</a>
+  </p>
+</section>

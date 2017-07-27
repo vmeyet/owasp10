@@ -1,0 +1,57 @@
+<h1><a href="/owasp-top-ten/insufficient-attack-protection" class="nav-prec">◀︎</a>CSRF 📝<a href="/owasp-top-ten/using-component-with-known-vuln" class="nav-succ">▶︎</a></h1>
+
+<section>
+  <h2>Those acronyms make me cringes!</h2>
+
+  <p>
+    CSRF/XSRF stands for: Cross-Site Request Forgery
+  </p>
+
+  <quote>A CSRF attack forces a logged-on victim’s browser to send a forged HTTP request, including the victim’s session cookie and any other automatically included authentication information, to a vulnerable web application. Such an attack allows the attacker to force a victim’s browser to generate requests the vulnerable application thinks are legitimate requests from the victim.</quote>
+
+</section>
+
+<section>
+  <h2 style="text-transform: uppercase">What!! This seems dangerous! ☣</h2>
+
+  <p>Keep your calm deer fellow!</p>
+
+  <p>The following table will help you mitigate this ;)</p>
+
+  <table>
+    <thead>
+      <th>View (display)</th>
+      <th>View (input)</th>
+      <th>Controller</th>
+      <th>Model</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul>
+            <li>Validate user is authenticated
+            <li>Validate role is sufficient for this view
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Send CSRF token.
+            <li>Set "secure" and "HttpOnly" flags for session cookies.
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Validate CSRF token.
+            <li>Validate role is sufficient to perform this action.
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Validate role is sufficient to CRUD
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+

@@ -1,0 +1,8 @@
+<a href="/demos/code-injection">&lt; Back</a>
+
+<br><br>
+<% if @result.present? %>
+    <pre><%= @result %></pre>
+<% else %>
+    <span class="error">Command not found for unix-like OS</span>
+<% end %>

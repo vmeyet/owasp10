@@ -1,0 +1,10 @@
+<section class="demo">
+  <h2>Cats With Burgers</h2>
+
+  <% @files.each do |file| %>
+    <div style="margin: auto; margin-bottom: 50px">
+      <img src="<%= file %>" style="max-width: 500px">
+      <div><a href="<%= file %>">You can download it</a></div>
+    </div>
+  <% end %>
+</section>

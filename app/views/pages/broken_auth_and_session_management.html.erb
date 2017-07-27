@@ -1,0 +1,138 @@
+<h1><a href="/owasp-top-ten/injections" class="nav-prec">◀︎</a>Broken Authentication and Session Management 🔓<a href="/owasp-top-ten/xss" class="nav-succ">▶︎</a></h1>
+
+<section>
+  <h2>Dontgetit...</h2>
+
+  <quote>Application functions related to authentication and session management are often implemented incorrectly, allowing attackers to compromise passwords, keys, or session tokens, or to exploit other implementation flaws to assume other users’ identities (temporarily or permanently).</quote>
+
+  <p>
+    In short are you using a cryptographically secure strong authentication.
+
+    <br>
+
+    We are talking about:
+
+    <ul>
+      <li>Password storage
+      <li>Forgot password flow
+      <li>Session management
+    </ul>
+  </p>
+</section>
+
+<section>
+  <h2>mmmmmmmmmmmmkay...</h2>
+
+  <h3>Weak Password Storage</h3>
+
+  <p>Let's say you have your DB password encrypted using an insecure algorithme such as MD5</p>
+
+  <table>
+    <thead>
+      <th>UserName</th>
+      <th>Password</th>
+      <th>Admin</th>
+    </thead>
+    <tbody>
+      <% User.all.each do |user| %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.encrypted_password %></td>
+          <td><%= user.admin %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p>
+    Lots of services out there are cracking those real fast (think 🌈tables).
+
+    <br>
+
+    An example of such service is <a href="https://crackstation.net/">Crackstation.net</a>
+  </p>
+
+  <h3>Session Management</h3>
+
+  <p>
+    Another example would be when sessions don't timeout or are exposed in the URL
+
+    <a>Link to demo</a> <span class="todo">(TODO)</span>
+  </p>
+</section>
+
+<section>
+  <h2>But, but people know best practices right?</h2>
+
+  <p>
+    I don't know you tell me
+    <ul>
+      <li>
+        <a href="http://siph0n.net/exploits.php?id=3676">
+          SQL Injection + Weak Password Storage
+        </a>
+
+      <li>
+        I remember a time (not so far) where Bannerman did awful things <a href="https://github.com/getbannerman/bannerman/blob/a65ee5216c0a0640b5a61ffabc943057e1c99190/app/models/bodyguard.rb#L102">/app/models/bodyguard.rb#L102 on Jan 16, 2015</a>
+
+        <br><br>
+
+        We use to have URL such as <a>http://getbannerman.com/guards/apply/background-check/yy9WVT9z7T2Jxz6XT4ES</a>.
+
+        <br>
+
+        <b>yy9WVT9z7T2Jxz6XT4ES</b> is a non-expirable token, visible in the URL with which you could make any query on behalf of the guard.
+
+        <br><br>
+
+        <i>For example change the bank account, get guard working hours etc.</i>
+    </ul>
+  <p>
+</section>
+
+<section>
+  <h2 style="text-transform: uppercase">Stop scaring me 😱! what should I do?</h2>
+
+  <p>Take a 🍺 pal!</p>
+
+  <p>The following table will help you mitigate this ;)</p>
+
+  <table>
+    <thead>
+      <th>View (display)</th>
+      <th>View (user input)</th>
+      <th>Controller</th>
+      <th>Model</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul>
+            <li>Ensure authentication and authorization to see resource
+            <li>Set "secure" and "HttpOnly" flags for session cookies
+            <li>CSRF token with forms
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>CSRF token with forms
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Validate authentication and authorization to see resource
+            <li>Use builtin session management
+            <li>Store session object (do not send as additional headers or cookies)
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Validate role is sufficient to CRUD
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><a href="https://www.owasp.org/index.php/Authentication_Cheat_Sheet">Cheat Sheet ⤴️</a></p>
+</section>

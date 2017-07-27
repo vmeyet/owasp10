@@ -1,0 +1,124 @@
+<h1><a href="/owasp-top-ten/broken-auth-and-session-management" class="nav-prec">◀︎</a>XSS 📝<a href="/owasp-top-ten/broken-access-control" class="nav-succ">▶︎</a></h1>
+
+<section>
+  <h2>Acronyms are so annoying...</h2>
+
+  <p>
+    XSS stands for: <b>Cross Site Scripting</b>
+  </p>
+
+  <quote>XSS flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user supplied data using a browser API that can create JavaScript. XSS allows attackers to execute scripts in the victim’s browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites.</quote>
+
+  <p>
+    Hacker can inject code to be executed on the victim's machine
+  </p>
+</section>
+
+<section>
+  <h2>Wat iz that black Magic?!? 🎱</h2>
+
+  <p>
+    Any code that is injected to be used to construct the web page may be vulnerable: HTML, JS, HTML attribute, CSS.
+    Each injections have its own set of ☠️ characters.
+  </p>
+
+  <h3>Stored Server XSS</h3>
+
+  <p>
+    User supplied input has been stored in DB and is used to construct a webpage.
+
+    <code class="small">######################
+sn
+# Exploit Title : Rubedo CMS stored xss
+# Exploit Author : Black Hornet
+# Vendor Homepage : http://www.rubedo-project.org/
+# Google Dork: intext:"This site is powered by Rubedo"
+# Date: 2015-08-05
+# Tested On : mint / Mozilla Firefox
+Rubedo CMS is affected by affected by a persistant xss in the back office:
+POC:
+1. goto /backoffice/.
+example: http://demo.rubedo-project.org/backoffice/
+2. Username:admin pass:admin
+
+3. Press the menu "Lizard icon"
+
+4. then E-commerce --> Taxes
+
+5 Double click "name"
+
+6. Replace with this syntax:
+&lt;img src=x onerror=alert(/hornet/)&gt;
+-------------------------------
+
+# siph0n [2015-08-05]</code>
+
+    <a href="https://demo.rubedo-project.org/backoffice/">Link to demo</a>
+  </p>
+
+  <h3>Reflected Client XSS</h3>
+
+  <p>
+    User supplied input is used to update current page.
+
+    <a>Link to demo</a> <span class="todo">(TODO)</span>
+  </p>
+</section>
+
+<section>
+  <h2>Gotchas</h2>
+
+  <h3>setInterval overload <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">⤴️</a></h3>
+  <code><span class="code-symbol">&lt;script&gt;</span>
+  <span class="code-keyword">window</span>.setInterval(<span class="code-string">'...EVEN IF YOU ESCAPE UNTRUSTED DATA YOU ARE XSSED HERE...'</span>);
+<span class="code-symbol">&lt;/script&gt;</span></code>
+</section>
+
+<section>
+  <h2 style="text-transform: uppercase">Should I worry?</h2>
+
+  <p>Keep your cool!</p>
+
+  <p>The following table will help you mitigate this ;)</p>
+
+  <table>
+    <thead>
+      <th>View (display)</th>
+      <th>View (user input)</th>
+      <th>Controller</th>
+      <th>Model</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul>
+            <li>Correct content-type
+            <li>Correct local
+            <li>Safe character set (utf-8)
+            <li>Output encode all user data as per output context
+            <li>Set input constraints
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Enforce input field type and lengths
+            <li>Validate fields and provide feedback
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Canonicalize using character set
+            <li>Positive input validation using correct character set
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Do not store data HTML encoded in the database
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet">Cheat Sheet ⤴️</a></p>
+</section>

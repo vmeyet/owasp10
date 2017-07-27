@@ -1,0 +1,24 @@
+<a href="/demos/sql-injection">&lt; Back</a>
+
+<br><br>
+
+<% if @user %>
+    <p>Welcome <%= @user.username %> you <b>ARE <% unless @user.admin %>NOT<% end %></b> admin!</p>
+
+    <% if @user.admin %>
+        <code>
+            SECRET DATA SECRET DATA SECRET DATA
+            SECRET DATA SECRET DATA SECRET DATA
+            SECRET DATA SECRET DATA SECRET DATA
+        </code>
+    <% end %>
+<% else %>
+    <p class="error">Wrong username or password</p>
+<% end %>
+
+<% if @error %>
+    <p class="error">An error occured</p>
+    <code>
+    <%= @error %>
+    </code>
+<% end %>

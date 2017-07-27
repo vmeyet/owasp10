@@ -1,0 +1,50 @@
+<h1><a href="/owasp-top-ten/security-misconfiguration" class="nav-prec">◀︎</a>Sensitive Data Exposure 👀<a href="/owasp-top-ten/insufficient-attack-protection" class="nav-succ">▶︎</a></h1>
+
+<section>
+  <h2>Big words for nothing...</h2>
+
+  <quote>Many web applications and APIs do not properly protect sensitive data, such as financial, healthcare, and PII. Attackers may steal or modify such weakly protected data to conduct credit card fraud, identity theft, or other crimes. Sensitive data deserves extra protection such as encryption at rest or in transit, as well as special precautions when exchanged with the browser.</quote>
+
+  <p>This is about keeping your stuff private</p>
+</section>
+
+<section>
+  <h2 style="text-transform: uppercase">What!! But I want my data protected! 🤕</h2>
+
+  <p>Be merry my friend!</p>
+
+  <p>The following table will help you mitigate this ;)</p>
+
+  <table>
+    <thead>
+      <th>View (display)</th>
+      <th>Controller</th>
+      <th>Model</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul>
+            <li>Do not send keys or hashes to the browser.
+            <li>Use strong ciphers (AES 128 or better).
+            <li>Use strong hashes (SHA 256 or better) with salts for passwords.
+            <li>Protect keys more than any other asset.
+            <li>Use TLS 1.2 or later for all web communications.
+            <li>Buy extended validation (EV) certificates for public web servers.
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Strong encrypted communications between web and database servers
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Strong encrypted communications between application servers
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
