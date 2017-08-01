@@ -1,0 +1,69 @@
+<%= content_for :stylesheet do %>
+  <style>
+    textarea {
+      width: 500px;
+      height: 100px;
+      margin: auto;
+      border: 1px solid #abc;
+      border-radius: 3px;
+    }
+
+    #myNotes > li {
+      max-width: 500px;
+      margin: 10px auto;
+      padding: 30px 10px;
+      list-style: none;
+      border-radius: 3px;
+      border: 1px solid #abc;
+      background: #fafcfe;
+      white-space: pre;
+    }
+  </style>
+<% end %>
+
+<%= content_for :javascript do %>
+  <script type="text/javascript">
+    function addTodo(title, note) {
+      ajax({
+        method: 'POST',
+        url: '/api/todos',
+        params: { note: $('textarea').value },
+        success: function() {
+          ajax({
+            method: 'GET',
+            url: '/api/todos',
+            success: function(response) {
+              let data = JSON.parse(response);
+              let topNode = $('#myNotes');
+
+              while (topNode.hasChildNodes()) {
+                topNode.removeChild(topNode.lastChild);
+              }
+
+              data.forEach(function(item, idx) {
+                var node = document.createElement('li');
+                var textnode = document.createTextNode(item.note);
+                node.appendChild(textnode);
+                topNode.appendChild(node);
+              });
+            }
+          })
+        }
+      })
+    }
+  </script>
+<% end %>
+
+<section class="demo">
+  <h2>My private notes</h2>
+
+  <div id="myNotes">
+    <% @broken_session.data['todos'].each do |todo| %>
+      <li><%= todo['note'] %>
+    <% end %>
+  </div>
+
+  <textarea></textarea>
+
+  <button onclick="addTodo('Yes', 'man ok')">add</button>
+</section>

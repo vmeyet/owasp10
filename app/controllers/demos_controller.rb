@@ -8,8 +8,4 @@ class DemosController < ApplicationController
   def sql_injection
     render :sql_injection
   end
-
-  def blind_sql_injection
-    render :blind_sql_injection
-  end
 end

@@ -1,0 +1,92 @@
+<%= content_for :stylesheet do %>
+  <style>
+    .conversation {
+      background-color: white;
+      border: 1px solid #345;
+      border-radius: 3px;
+      max-width: 400px;
+      margin: 50px auto;
+    }
+
+    .conversation .title {
+      background-color: #f7f7f7;
+      border-bottom: 1px solid #e6e7e7;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    .conversation h4 + div {
+      margin-top: 30px;
+    }
+
+    .conversation div {
+      margin: 10px;
+      padding: 3px 10px;
+      clear: both;
+    }
+
+    .conversation .sent {
+      background-color: #007fff;
+      color: white;
+      float: right;
+      border-radius: 50px;
+    }
+
+    .conversation .received {
+      background-color: #e5e5ea;
+      float: left;
+      border-radius: 50px;
+    }
+  </style>
+<% end %>
+
+<%= content_for :javascript do %>
+  <script type="text/javascript">
+    let userId = <%= session[:user_id] %>;
+
+    function getChatMessages(uid) {
+      ajax({
+        method: 'GET',
+        url: `/api/users/${uid}/chat_messages`,
+        success: function(response) {
+          let data = JSON.parse(response);
+          let topNode = $('#conversations');
+
+          while (topNode.hasChildNodes()) {
+            topNode.removeChild(topNode.lastChild);
+          }
+
+          Object.keys(data).forEach(function(user) {
+            var converation = document.createElement('div');
+            converation.className = 'conversation';
+
+            var title = document.createElement('h4');
+            title.className = 'title';
+
+            title.appendChild(document.createTextNode(user));
+            converation.appendChild(title);
+
+            data[user].forEach(function(message) {
+              var content = document.createElement('div');
+              content.className = message.user_id === uid ? 'sent' : 'received';
+
+              content.appendChild(document.createTextNode(message.content));
+              converation.appendChild(content);
+            });
+
+            converation.appendChild(document.createElement('div'));
+            topNode.appendChild(converation);
+          });
+        }
+      })
+    }
+  </script>
+<% end %>
+
+<section class="demo">
+  <h2>My conversations</h2>
+
+  <div id="conversations"></div>
+
+  <script>getChatMessages(userId)</script>
+</section>

@@ -1,0 +1,28 @@
+<%= content_for :stylesheet do %>
+  <style>
+    .result {
+      max-width: 700px;
+      margin: 30px auto;
+    }
+  </style>
+<% end %>
+
+<%= content_for :javascript do %>
+  <script type="text/javascript">
+    function getUserAgent() {
+      return navigator.userAgent;
+    };
+  </script>
+<% end %>
+
+<section class="demo">
+  <h2>User Agent Sniffer 👃</h2>
+
+  <div class="result">
+    <p>Your User-Agent seems to be the following one:</p>
+
+    <code id="userAgent">
+      <script type="text/javascript">document.write(getUserAgent());</script>
+    </code>
+  </div>
+</section>

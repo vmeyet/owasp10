@@ -8,6 +8,55 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag 'demo', media: 'all' %>
+
+    <script type="text/javascript">
+      function $(querySelector) {
+        return window.document.getElementsByTagName('html')[0].querySelector(querySelector);
+      }
+
+      function getQueryParams() {
+        let qs = document.location.search.split('+').join(' ');
+
+        var params = {},
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+        }
+
+        return params;
+      }
+
+      function ajax(params = {}) {
+        let r = new XMLHttpRequest();
+        let query = Object.assign(params.params || {}, getQueryParams());
+
+        if(params.method === 'GET') {
+          let uriQuery = Object.keys(query).map(function(k) {
+              return encodeURIComponent(k) + "=" + encodeURIComponent(query[k]);
+          }).join('&');
+
+          params.url += '?' + uriQuery;
+        }
+
+        r.open(params.method, params.url, true);
+        r.setRequestHeader('Content-Type', 'application/json');
+        r.onreadystatechange = function () {
+          if (r.readyState != 4 || r.status < 200 || r.status >= 400) return;
+          params.success(r.response);
+        };
+        r.send(JSON.stringify(query));
+      }
+    </script>
+
+    <% if content_for?(:stylesheet) %>
+        <%= yield :stylesheet %>
+    <% end %>
+
+    <% if content_for?(:javascript) %>
+      <%= yield :javascript %>
+    <% end %>
   </head>
 
   <body>

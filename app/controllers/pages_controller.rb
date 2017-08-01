@@ -1,4 +1,8 @@
 class PagesController < ApplicationController
+  def home
+    render :home
+  end
+
   def injections
     render :injections
   end
@@ -37,5 +41,9 @@ class PagesController < ApplicationController
 
   def underprotected_apis
     render :underprotected_apis
+  end
+
+  def questions
+    render :questions
   end
 end

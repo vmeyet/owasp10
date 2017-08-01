@@ -1,0 +1,63 @@
+<section class="demo">
+  <style>
+    h4 {
+      text-align: left;
+      text-decoration: none;
+    }
+
+    .positif-true {
+      color: #495;
+    }
+
+    .amount.positif-true:before {
+      content: '+';
+    }
+
+    .amount.positif-false:before {
+      content: '-';
+    }
+
+    .positif-false {
+      color: #c33;
+    }
+
+    .deposit.positif-true {
+      background-color: #dfe;
+      border: 1px solid #495;
+      border-radius: 2px;
+    }
+
+    .deposit.positif-false {
+      background-color: #fdd;
+      border: 1px solid #c33;
+    }
+
+    .deposit {
+      max-width: 700px;
+      padding: 10px 30px;
+      margin: 20px auto;
+    }
+
+    .description {
+      padding-left: 10px;
+    }
+  </style>
+
+  <h2>🔒🔒🔒 BankingSecure.io 🔒🔒🔒</h2>
+
+  <div>
+    <p>
+      <h4>Account Balance: <span class="amount positif-<%= Deposit.positif?(@user) %>"><%= number_to_currency(Deposit.balance_in_dollars_of(@user).abs) %></span></h4>
+
+      <h4>Transaction History</h4>
+
+      <% Deposit.of_user(@user).sort_by(&:created_at).reverse.each do |deposit| %>
+        <div class="deposit positif-<%= deposit.positif?(@user) %>">
+          <span class="amount positif-<%= deposit.positif?(@user) %>"><%= number_to_currency(deposit.amount_in_cents.abs) %></span>
+          <span class="description"><%= deposit.comment %></span>
+          <small style="float: right"><%= distance_of_time_in_words_to_now(deposit.created_at) %> ago</small>
+        </div>
+      <% end %>
+    </p>
+  </div>
+</section>

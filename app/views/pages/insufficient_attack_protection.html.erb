@@ -1,9 +1,41 @@
 <h1><a href="/owasp-top-ten/sensitive-data-exposure" class="nav-prec">◀︎</a>Insufficient Attack Protection 🛡<a href="/owasp-top-ten/csrf" class="nav-succ">▶︎</a></h1>
 
 <section>
-  <h2>I bet for you it'll always be insufficient...</h2>
+  <h2>It'll always be insufficient...</h2>
 
   <quote>The majority of applications and APIs lack the basic ability to detect, prevent, and respond to both manual and automated attacks. Attack protection goes far beyond basic input validation and involves automatically detecting, logging, responding, and even blocking exploit attempts. Application owners also need to be able to deploy patches quickly to protect against attacks.</quote>
 
   <p>It is just about attack attempts detection</p>
+</section>
+
+<section>
+  <h2>Ok, how do I do that</h2>
+
+  <p>Use tools / reports / logs / check automation / traffic analysis to detect:<p>
+
+  <ul>
+    <li>Injection attempts
+    <li>Intrusion attempts
+    <li>DDOS attempts
+    <li>Webpage defacing
+    <li>...
+  </ul>
+</section>
+
+
+<section>
+  <h2>Am I safe with that in place ?</h2>
+
+  <p>
+    Well, no. It's a cat and mouse game 🐱🐭
+    <br><br>
+    So you might want to catch the 99.99%, a skilled hacker can use a lot of technique to evade:
+  <p>
+
+  <ul>
+    <li>Whitespace manipulation (tab, spaces, carriage-return, null)
+    <li>Encoding (Hexadecimal, Decimal, Url, Case)
+    <li>Obfuscation
+    <li>Proxys
+  </ul>
 </section>

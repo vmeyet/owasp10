@@ -7,23 +7,12 @@ class InjectionsController < ApplicationController
 
   def sql_injection
     username = params[:username]
-    password = params[:password]
+    password = EncryptionService.encrypt(params[:password].to_s)
 
     @user = User.find_by(<<-SQL)
       username = "#{username}" AND encrypted_password = "#{password}"
     SQL
   rescue StandardError => e
     @error = e.message.gsub(/ +/, ' ')
-  end
-
-  def blind_sql_injection
-    username = params[:username]
-    password = params[:password]
-
-    @user = User.find_by(<<-SQL)
-      username = "#{username}" AND encrypted_password = "#{password}"
-    SQL
-  rescue StandardError
-    redirect_to '/demos/blind-sql-injection'
   end
 end

@@ -9,10 +9,61 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
     <script>
+      function $(querySelector) {
+        return window.document.getElementsByTagName('html')[0].querySelector(querySelector);
+      }
+
       function resizeIframe(obj) {
         obj.style.height = 0;
         obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
       }
+
+      function scrollToSection(n) {
+        let selector, element;
+
+        if(n < 1) selector = 'body';
+        selector = selector || 'body > ' + [ ...Array(n) ].map(c => 'section').join(' + ');
+        element = $(selector);
+
+        if(!element) return;
+
+        window.scrollTo(0, $(selector).offsetTop - 50)
+      }
+
+      window.currentSectionNumber = 1;
+
+      function checkKey(e) {
+          e = e || window.event;
+
+          let nbSection = [ ...$('body').children ].filter(e => e.matches('section')).length;
+
+          if(e.keyCode === 38 /* UP */) {
+            window.currentSectionNumber -= 1;
+            if(window.currentSectionNumber < 1) window.currentSectionNumber = 1;
+            e.preventDefault();
+            scrollToSection(window.currentSectionNumber);
+          };
+
+          if(e.keyCode === 40 /* DOWN */) {
+            window.currentSectionNumber += 1;
+            if(window.currentSectionNumber > nbSection) window.currentSectionNumber = nbSection;
+            e.preventDefault();
+            scrollToSection(window.currentSectionNumber);
+          };
+
+          if(e.keyCode === 37 /* LEFT */) {
+            let previousPage = $('body > h1 > a.nav-prec');
+            if(previousPage) previousPage.click();
+          };
+
+          if(e.keyCode === 39 /* RIGHT */) {
+            let nextPage = $('body > h1 > a.nav-succ');
+            if(nextPage) nextPage.click();
+          };
+      }
+
+      document.onkeydown = checkKey;
+
     </script>
   </head>
 
