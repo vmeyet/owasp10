@@ -1,24 +1,9 @@
-# README
+# Demos of the OWASP Top10 (2017)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```
+cd owasp10
+bundle
+make reset server
+```
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+then go to 0.0.0.0:3000
