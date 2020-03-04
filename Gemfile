@@ -7,7 +7,7 @@ end
 
 gem 'activerecord-session_store'
 gem 'jbuilder', '~> 2.5'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.0.2'
 gem 'sqlite3', '~> 1.3.6'
 
