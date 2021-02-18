@@ -6,10 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 gem 'activerecord-session_store'
-gem 'jbuilder', '~> 2.5'
-gem 'puma', '~> 3.0'
-gem 'rails', '~> 5.0.2'
-gem 'sqlite3', '~> 1.3.6'
+gem 'jbuilder', '~> 2.11'
+gem 'puma', '~> 5'
+gem 'rails', '~> 6'
+gem 'sqlite3', '~> 1.3'
 
 group :development, :test do
   gem 'byebug', platform: :mri
